@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1030369881423",
+    "project_id": "point-management-4f28d",
+    "storage_bucket": "point-management-4f28d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1030369881423:android:8c678a070f0f6dc104293a",
+        "android_client_info": {
+          "package_name": "com.btntrung.pointmanagement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1030369881423-62otih6tatjbqi9mkb7m0n7bkbqb11c3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.btntrung.pointmanagement",
+            "certificate_hash": "ac5c9939c050b3dabfea72b880ba1f4db683e60e"
+          }
+        },
+        {
+          "client_id": "1030369881423-u7rq665aa729u3tk03am4v8o0m6arrrc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuvStrAcg7rzp5InHkDHiHu4htEQHIo90"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1030369881423-u7rq665aa729u3tk03am4v8o0m6arrrc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
