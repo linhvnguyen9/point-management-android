@@ -63,4 +63,14 @@ dependencies {
 
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    implementation 'com.firebaseui:firebase-ui-auth:6.4.0'
+
+    implementation "com.orhanobut:hawk:2.0.1"
+
+    def koin_version = '3.0.1'
+    implementation "io.insert-koin:koin-core:$koin_version"
+    implementation "io.insert-koin:koin-android:$koin_version"
+
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
 }
