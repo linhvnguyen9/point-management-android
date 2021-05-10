@@ -11,4 +11,10 @@
     <string name="login_failed">"Login failed"</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
+    <string name="facebook_app_id">160032986001273</string>
+    <string name="fb_login_protocol_scheme">fb160032986001273</string>
+    <string name="facebook_application_id">160032986001273</string>
+    <string name="facebook_login_protocol_scheme">fb160032986001273</string>
 </resources>
