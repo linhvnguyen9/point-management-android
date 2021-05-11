@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.btntrung.pointmanagement.entity.Student;
 import com.btntrung.pointmanagement.fragments.StudentPointFragment;
 import com.btntrung.pointmanagement.fragments.SudentSubjectFragment;
 import com.google.android.material.tabs.TabLayout;
@@ -21,8 +22,12 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class StudentMainActivity extends AppCompatActivity {
     private TextView username;
+    private Student student;
+    private CircleImageView profileImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +36,13 @@ public class StudentMainActivity extends AppCompatActivity {
 
         TabLayout tabLayout=findViewById(R.id.tab_layout);
         ViewPager viewPager=findViewById(R.id.view_pager);
+        profileImage=findViewById(R.id.profile_image);
+        username=findViewById(R.id.username);
+
+        student=new Student("123","123","nguyen abcd","","","","","");
+
+        username.setText(student.getName());
+        profileImage.setImageResource(R.mipmap.ic_launcher);
 
         ViewPagerAdapter viewPagerAdapter=new ViewPagerAdapter(getSupportFragmentManager());
         viewPagerAdapter.addFragment(new SudentSubjectFragment(),"Subject");
@@ -39,6 +51,8 @@ public class StudentMainActivity extends AppCompatActivity {
         viewPager.setAdapter(viewPagerAdapter);
 
         tabLayout.setupWithViewPager(viewPager);
+
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -49,7 +63,7 @@ public class StudentMainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.logout:
-                FirebaseAuth.getInstance().signOut();
+//                FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(StudentMainActivity.this,LoginActivity.class));
                 finish();
                 return true;

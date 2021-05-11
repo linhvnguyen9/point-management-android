@@ -18,10 +18,17 @@
             android:id="@+id/toolbar"
             android:background="@color/toolbar">
 
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@mipmap/ic_launcher"
+                android:id="@+id/profile_image"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/username"
+                android:text="Nguyen ABC"
                 android:layout_marginLeft="25dp"
                 android:layout_marginStart="25dp"
                 android:textSize="20dp"/>
