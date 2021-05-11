@@ -41,8 +41,14 @@ class LoginActivity : AppCompatActivity() {
             if (resultCode == Activity.RESULT_OK) {
                 FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener {
                     if (it.isSuccessful) {
+//                        val isAdmin = it.result?.claims?.get("admin") as Boolean
+                        val isAdmin = true
                         Hawk.put("FIREBASE_TOKEN", it.result?.token)
-                        val intent = Intent(this, MainActivity::class.java)
+                        val intent = if (isAdmin) {
+                            Intent(this, ManagerMainActivity::class.java)
+                        } else {
+                            Intent(this, StudentMainActivity::class.java)
+                        }
                         startActivity(intent)
                         finish()
                     }

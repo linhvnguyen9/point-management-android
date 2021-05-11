@@ -68,7 +68,6 @@ public class StudentMainActivity extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.profile:
-
                 finish();
                 return true;
 
