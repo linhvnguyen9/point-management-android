@@ -22,7 +22,6 @@ class ManagerMainViewModel(private val semesterService: SemesterService, private
 
     init {
         getAllSemesters()
-        getClassrooms(6)
     }
 
     private fun getAllSemesters() {
@@ -35,7 +34,7 @@ class ManagerMainViewModel(private val semesterService: SemesterService, private
         }
     }
 
-    private fun getClassrooms(semesterId: Int) {
+    fun getClassrooms(semesterId: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 val response = classroomService.getClassroomBySemester(semesterId)

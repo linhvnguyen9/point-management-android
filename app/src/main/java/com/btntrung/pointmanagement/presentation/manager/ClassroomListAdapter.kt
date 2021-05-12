@@ -9,19 +9,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.btntrung.pointmanagement.databinding.ItemClassroomBinding
 import com.btntrung.pointmanagement.entity.Classroom
 
-class ClassroomListAdapter : ListAdapter<Classroom, ClassroomListAdapter.ClassroomViewHolder>(ClassroomListDiffUtil()) {
+class ClassroomListAdapter(private val classroomClickListener: ClassroomClickListener) : ListAdapter<Classroom, ClassroomListAdapter.ClassroomViewHolder>(ClassroomListDiffUtil()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClassroomViewHolder {
         return ClassroomViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: ClassroomViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item)
+        holder.bind(item, classroomClickListener)
     }
 
     class ClassroomViewHolder(private val binding: ItemClassroomBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(classroom: Classroom) {
+        fun bind(classroom: Classroom, clickListener: ClassroomClickListener) {
             binding.classroom = classroom
+            binding.listener = clickListener
             binding.executePendingBindings()
         }
 
@@ -41,4 +42,8 @@ class ClassroomListDiffUtil: DiffUtil.ItemCallback<Classroom>() {
 
     override fun areContentsTheSame(oldItem: Classroom, newItem: Classroom): Boolean =
         oldItem.name == newItem.name
+}
+
+interface ClassroomClickListener {
+    fun onClick(classroom: Classroom)
 }

@@ -6,11 +6,18 @@
         <variable
             name="classroom"
             type="com.btntrung.pointmanagement.entity.Classroom" />
+
+        <variable
+            name="listener"
+            type="com.btntrung.pointmanagement.presentation.manager.ClassroomClickListener" />
     </data>
 
     <FrameLayout
+        android:clickable="true"
+        android:focusable="true"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> listener.onClick(classroom)}">
 
         <androidx.cardview.widget.CardView
             android:layout_margin="4dp"
@@ -22,8 +29,10 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:textSize="18sp"
                     android:id="@+id/text_class_name"
                     android:layout_width="match_parent"
+                    android:text="@{classroom.name}"
                     android:layout_height="wrap_content"
                     tools:text="E17CN2" />
             </LinearLayout>
