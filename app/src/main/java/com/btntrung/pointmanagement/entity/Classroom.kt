@@ -2,4 +2,4 @@ package com.btntrung.pointmanagement.entity
 
 import com.google.gson.annotations.SerializedName
 
-data class Semester(val id: Int, @SerializedName("semester_name") val name: String)
+data class Classroom(val id: Int, @SerializedName("class_name") val name: String)
