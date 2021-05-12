@@ -12,11 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PointManagement">
-        <activity android:name=".ManagerMainActivity"></activity>
-        <activity android:name=".DetailPointActivity" />
-        <activity android:name=".StudentMainActivity"/>
-        <activity android:name=".LoginActivity" >
 
+        <activity android:name=".ManagerSearchStudentActivity"/>
+        <activity android:name=".ManagerMainActivity"/>
+        <activity android:name=".DetailPointActivity" />
+        <activity android:name=".StudentMainActivity" />
+        <activity android:name=".LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,9 +41,11 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <provider android:authorities="com.facebook.app.FacebookContentProvider160032986001273"
+
+        <provider
             android:name="com.facebook.FacebookContentProvider"
-            android:exported="true"/>
+            android:authorities="com.facebook.app.FacebookContentProvider160032986001273"
+            android:exported="true" />
     </application>
 
 </manifest>
