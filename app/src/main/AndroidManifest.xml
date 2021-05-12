@@ -12,12 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PointManagement">
-
-        <activity android:name=".ManagerSearchStudentActivity"/>
-        <activity android:name=".ManagerMainActivity"/>
+        <activity android:name=".ManagerViewPointActivity"></activity>
+        <activity android:name=".AddPointActivity" />
+        <activity android:name=".ManagerSearchStudentActivity" /> <!-- <activity android:name=".ManagerMainActivity"/> -->
         <activity android:name=".DetailPointActivity" />
         <activity android:name=".StudentMainActivity" />
-        <activity android:name=".LoginActivity" >
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".ManagerMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
