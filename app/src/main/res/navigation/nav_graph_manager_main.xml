@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_manager_main"
+    app:startDestination="@id/managerMainFragment">
+
+    <fragment
+        android:id="@+id/managerMainFragment"
+        android:name="com.btntrung.pointmanagement.presentation.manager.ManagerMainFragment"
+        android:label="ManagerMainFragment" >
+        <action
+            android:id="@+id/action_managerMainFragment_to_studentListFragment"
+            app:destination="@id/studentListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/studentListFragment"
+        android:name="com.btntrung.pointmanagement.presentation.manager.StudentListFragment"
+        android:label="fragment_student_list"
+        tools:layout="@layout/fragment_student_list" >
+        <argument
+            android:name="classroom"
+            app:argType="com.btntrung.pointmanagement.entity.Classroom" />
+    </fragment>
+</navigation>

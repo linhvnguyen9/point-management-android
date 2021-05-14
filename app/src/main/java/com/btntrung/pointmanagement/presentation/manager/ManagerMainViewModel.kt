@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.btntrung.pointmanagement.data.remote.semester.ClassroomService
+import com.btntrung.pointmanagement.data.remote.classroom.ClassroomService
 import com.btntrung.pointmanagement.data.remote.semester.SemesterService
 import com.btntrung.pointmanagement.entity.Classroom
 import com.btntrung.pointmanagement.entity.Semester

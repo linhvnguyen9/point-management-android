@@ -1,8 +1,9 @@
 package com.btntrung.pointmanagement.data.remote.di
 
 import com.btntrung.pointmanagement.data.remote.interceptor.AuthInterceptor
-import com.btntrung.pointmanagement.data.remote.semester.ClassroomService
+import com.btntrung.pointmanagement.data.remote.classroom.ClassroomService
 import com.btntrung.pointmanagement.data.remote.semester.SemesterService
+import com.btntrung.pointmanagement.data.remote.student.StudentService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
@@ -36,4 +37,5 @@ val dataModule = module {
 
     factory { get<Retrofit>().create(SemesterService::class.java) }
     factory { get<Retrofit>().create(ClassroomService::class.java) }
+    factory { get<Retrofit>().create(StudentService::class.java) }
 }
