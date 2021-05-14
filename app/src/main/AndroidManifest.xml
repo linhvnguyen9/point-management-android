@@ -17,7 +17,7 @@
         <activity android:name=".ManagerSearchStudentActivity"/>
         <activity android:name=".presentation.manager.ManagerMainActivity"/>
         <activity android:name=".DetailPointActivity" />
-        <activity android:name=".StudentMainActivity" />
+        <activity android:name=".presentation.student.StudentMainActivity" />
         <activity android:name=".LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

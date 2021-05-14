@@ -1,5 +1,6 @@
 package com.btntrung.pointmanagement.presentation.manager
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -14,6 +15,7 @@ import com.btntrung.pointmanagement.entity.Classroom
 import com.btntrung.pointmanagement.entity.Semester
 import com.btntrung.pointmanagement.presentation.manager.ClassroomListAdapter
 import com.btntrung.pointmanagement.presentation.manager.ManagerMainViewModel
+import com.btntrung.pointmanagement.presentation.student.StudentMainActivity
 import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -40,6 +42,8 @@ class ManagerMainActivity : AppCompatActivity() {
         binding.recycleView.layoutManager = LinearLayoutManager(this)
 
         binding.btnSearch.setOnClickListener {
+            val intent = Intent(this, StudentMainActivity::class.java)
+            startActivity(intent)
         }
 
         binding.spinnerManagerSemester.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
