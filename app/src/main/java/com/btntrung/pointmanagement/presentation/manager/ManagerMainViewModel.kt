@@ -17,6 +17,9 @@ class ManagerMainViewModel(private val semesterService: SemesterService, private
     private val _semesters = MutableLiveData<List<Semester>>()
     val semesters : LiveData<List<Semester>> get() = _semesters
 
+    private val _selectedSemester = MutableLiveData<Semester>()
+    val selectedSemester : LiveData<Semester> get() = _selectedSemester
+
     private val _classroom = MutableLiveData<List<Classroom>>()
     val classroom : LiveData<List<Classroom>> get() = _classroom
 
@@ -34,7 +37,12 @@ class ManagerMainViewModel(private val semesterService: SemesterService, private
         }
     }
 
-    fun getClassrooms(semesterId: Int) {
+    fun selectSemester(semester: Semester) {
+        _selectedSemester.value = semester
+        getClassrooms(semester.id)
+    }
+
+    private fun getClassrooms(semesterId: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 val response = classroomService.getClassroomBySemester(semesterId)

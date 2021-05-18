@@ -1,4 +1,4 @@
-package com.btntrung.pointmanagement.presentation.manager
+package com.btntrung.pointmanagement.presentation.manager.studentlist
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

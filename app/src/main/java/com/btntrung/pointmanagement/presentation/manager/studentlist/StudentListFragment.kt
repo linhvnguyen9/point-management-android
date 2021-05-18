@@ -1,15 +1,18 @@
-package com.btntrung.pointmanagement.presentation.manager
+package com.btntrung.pointmanagement.presentation.manager.studentlist
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.btntrung.pointmanagement.R
 import com.btntrung.pointmanagement.databinding.FragmentStudentListBinding
 import com.btntrung.pointmanagement.entity.Student
+import com.btntrung.pointmanagement.presentation.manager.StudentClickListener
+import com.btntrung.pointmanagement.presentation.manager.StudentListAdapter
+import com.google.firebase.auth.FirebaseAuth
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -34,7 +37,8 @@ class StudentListFragment : Fragment() {
 
         binding.recyclerStudentList.adapter = StudentListAdapter(object : StudentClickListener {
             override fun onClick(student: Student) {
-                Timber.d("click student")
+                val managerId = FirebaseAuth.getInstance().currentUser.uid
+                findNavController().navigate(StudentListFragmentDirections.actionStudentListFragmentToPointInputFragment(args.classroom.subjectId, student.uid, managerId, args.semesterId))
             }
         })
         binding.recyclerStudentList.layoutManager = LinearLayoutManager(requireContext())

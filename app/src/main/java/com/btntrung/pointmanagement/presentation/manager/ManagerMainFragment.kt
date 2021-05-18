@@ -9,12 +9,10 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.btntrung.pointmanagement.R
 import com.btntrung.pointmanagement.databinding.FragmentManagerMainBinding
 import com.btntrung.pointmanagement.entity.Classroom
 import com.btntrung.pointmanagement.entity.Semester
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 class ManagerMainFragment : Fragment() {
     private val viewModel: ManagerMainViewModel by viewModel()
@@ -35,7 +33,7 @@ class ManagerMainFragment : Fragment() {
 
         binding.recycleView.adapter = ClassroomListAdapter(object : ClassroomClickListener {
             override fun onClick(classroom: Classroom) {
-                findNavController().navigate(ManagerMainFragmentDirections.actionManagerMainFragmentToStudentListFragment(classroom))
+                findNavController().navigate(ManagerMainFragmentDirections.actionManagerMainFragmentToStudentListFragment(classroom, viewModel.selectedSemester.value?.id!!))
             }
         })
         binding.recycleView.layoutManager = LinearLayoutManager(requireContext())
@@ -51,7 +49,7 @@ class ManagerMainFragment : Fragment() {
                 id: Long
             ) {
                 val semester = parent?.adapter?.getItem(position) as Semester
-                viewModel.getClassrooms(semester.id)
+                viewModel.selectSemester(semester)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {

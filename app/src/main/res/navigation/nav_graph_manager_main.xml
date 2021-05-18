@@ -15,11 +15,37 @@
     </fragment>
     <fragment
         android:id="@+id/studentListFragment"
-        android:name="com.btntrung.pointmanagement.presentation.manager.StudentListFragment"
+        android:name="com.btntrung.pointmanagement.presentation.manager.studentlist.StudentListFragment"
         android:label="fragment_student_list"
         tools:layout="@layout/fragment_student_list" >
         <argument
             android:name="classroom"
             app:argType="com.btntrung.pointmanagement.entity.Classroom" />
+        <action
+            android:id="@+id/action_studentListFragment_to_pointInputFragment"
+            app:destination="@id/pointInputFragment" />
+        <argument
+            android:name="semesterId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/pointInputFragment"
+        android:name="com.btntrung.pointmanagement.presentation.manager.pointinput.PointInputFragment"
+        android:label="PointInputFragment" >
+        <argument
+            android:name="subjectId"
+            app:argType="integer" />
+        <argument android:name="studenUid"
+            app:argType="string" />
+        <argument
+            android:name="managerId"
+            app:argType="string" />
+        <argument
+            android:name="semesterId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_pointInputFragment_to_managerMainFragment"
+            app:destination="@id/managerMainFragment"
+            app:popUpTo="@id/pointInputFragment" />
     </fragment>
 </navigation>
