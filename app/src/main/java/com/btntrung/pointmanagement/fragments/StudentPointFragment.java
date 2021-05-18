@@ -20,6 +20,7 @@ import com.btntrung.pointmanagement.adapter.StudentPointAdapter;
 import com.btntrung.pointmanagement.entity.Semester;
 import com.btntrung.pointmanagement.entity.Subject;
 import com.btntrung.pointmanagement.presentation.student.ApiService;
+import com.btntrung.pointmanagement.presentation.student.StudentGetPointService;
 import com.btntrung.pointmanagement.presentation.student.model.StudentPointModel;
 import com.orhanobut.hawk.Hawk;
 
@@ -49,6 +50,8 @@ public class StudentPointFragment extends Fragment {
 //        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         callSemester(view);
+
+
 
         return view;
 

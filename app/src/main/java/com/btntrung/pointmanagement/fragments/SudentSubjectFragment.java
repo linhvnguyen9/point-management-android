@@ -15,8 +15,9 @@ import android.widget.Toast;
 import com.btntrung.pointmanagement.R;
 import com.btntrung.pointmanagement.adapter.StudentSubjectAdapter;
 import com.btntrung.pointmanagement.entity.Subject;
+import com.btntrung.pointmanagement.presentation.student.ApiService;
+import com.btntrung.pointmanagement.presentation.student.model.StudentPointModel;
 import com.github.mikephil.charting.charts.CombinedChart;
-import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.CombinedData;
@@ -24,15 +25,17 @@ import com.github.mikephil.charting.data.DataSet;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.orhanobut.hawk.Hawk;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SudentSubjectFragment extends Fragment {
 
@@ -42,7 +45,8 @@ public class SudentSubjectFragment extends Fragment {
 
     private CombinedChart mChart;
     private int textColor=Color.RED;
-
+    private String token="Bearer "+ Hawk.get("FIREBASE_TOKEN", "");
+    private List<StudentPointModel> list=null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,6 +57,7 @@ public class SudentSubjectFragment extends Fragment {
         recyclerView=view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mChart = (CombinedChart) view.findViewById(R.id.combinedChart);
 
         Subject subject=new Subject(1,"Lap trinh",0,0,0);
         Subject subject2=new Subject(2,"Lap trinh nhung",0,0,0);
@@ -62,29 +67,57 @@ public class SudentSubjectFragment extends Fragment {
         subjects.add(subject3);
         subjectAdapter=new StudentSubjectAdapter(getContext(),subjects);
         recyclerView.setAdapter(subjectAdapter);
-//        ------------------------------chart
 
-        mChart = (CombinedChart) view.findViewById(R.id.combinedChart);
+        callApi();
+
+        return view;
+    }
+    private void callApi(){
+        System.out.println(token);
+        ApiService.apiService.getAllPoint(token,4).enqueue(new Callback<List<StudentPointModel>>() {
+            @Override
+            public void onResponse(Call<List<StudentPointModel>> call, Response<List<StudentPointModel>> response) {
+                outChart(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<StudentPointModel>> call, Throwable t) {
+                System.out.println("Call API fail");
+            }
+        });
+
+    }
+    private void outChart(List<StudentPointModel> list){
+
+        float[] point = new float[20];
+        final List<String> semesterName = new ArrayList<>();
+
+        for (int i=0;i<list.size();i++)
+            for (int j=i+1;j<list.size();j++)
+                if (list.get(i).getSemester().getName().equals(list.get(j).getSemester().getName()))
+                    list.remove(j);
+
+        int d=-1;
+        for (StudentPointModel studentPointModel:list) {
+            d++;
+            semesterName.add(studentPointModel.getSemester().getName());
+            point[d]= (float) studentPointModel.getAvg();
+        }
+
         mChart.getDescription().setEnabled(false);
         mChart.setBackgroundColor(Color.WHITE);
         mChart.setDrawGridBackground(false);
         mChart.setDrawBarShadow(false);
         mChart.setHighlightFullBarEnabled(false);
-//        mChart.setOnChartValueSelectedListener(view);
+//        mChart.setOnChartValueSelectedListener(this);
 
         YAxis rightAxis = mChart.getAxisRight();
         rightAxis.setDrawGridLines(false);
-        rightAxis.setAxisMinimum(0f);
+        rightAxis.setAxisMinimum(5f);
 
         YAxis leftAxis = mChart.getAxisLeft();
         leftAxis.setDrawGridLines(false);
-        leftAxis.setAxisMinimum(0f);
-
-        final List<String> xLabel = new ArrayList<>();
-        xLabel.add("Kỳ 1");
-        xLabel.add("Kỳ 2");
-        xLabel.add("Kỳ 3");
-
+        leftAxis.setAxisMinimum(5f);
 
         XAxis xAxis = mChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -93,13 +126,13 @@ public class SudentSubjectFragment extends Fragment {
         xAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
-                return xLabel.get((int) value % xLabel.size());
+                return semesterName.get((int) value % semesterName.size());
             }
         });
 
         CombinedData data = new CombinedData();
         LineData lineDatas = new LineData();
-        lineDatas.addDataSet((ILineDataSet) dataChart(textColor));
+        lineDatas.addDataSet((ILineDataSet) dataChart(textColor,point,d));
 
         data.setData(lineDatas);
 
@@ -107,8 +140,6 @@ public class SudentSubjectFragment extends Fragment {
 
         mChart.setData(data);
         mChart.invalidate();
-
-        return view;
     }
 
     public void onValueSelected(Entry e, Highlight h) {
@@ -121,14 +152,14 @@ public class SudentSubjectFragment extends Fragment {
     public void onNothingSelected() {
 
     }
-    private static DataSet dataChart(int textColor) {
+    private static DataSet dataChart(int textColor,float [] data,int size) {
 
         LineData d = new LineData();
-        int[] data = new int[] {8,9,3 };
+
 
         ArrayList<Entry> entries = new ArrayList<Entry>();
 
-        for (int index = 0; index < 3; index++) {
+        for (int index = 0; index <=size; index++) {
             entries.add(new Entry(index, data[index]));
         }
 
@@ -149,4 +180,5 @@ public class SudentSubjectFragment extends Fragment {
 
         return set;
     }
+
 }
