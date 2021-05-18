@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,20 +12,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.btntrung.pointmanagement.DetailPointActivity;
 import com.btntrung.pointmanagement.R;
-import com.btntrung.pointmanagement.entity.ClassRoom;
+import com.btntrung.pointmanagement.entity.Classroom;
 
-import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class ManagerSearchClassAdapter extends
         RecyclerView.Adapter<ManagerSearchClassAdapter.ClassViewHolder>{
-    private List<ClassRoom> classRooms;
+    private List<Classroom> classrooms;
     private Context context;
 
-    public ManagerSearchClassAdapter(List<ClassRoom> classRooms) {
-        this.classRooms = classRooms;
+    public ManagerSearchClassAdapter(List<Classroom> classrooms) {
+        this.classrooms = classrooms;
     }
 
     @NonNull
@@ -40,7 +36,7 @@ public class ManagerSearchClassAdapter extends
     @Override
     public void onBindViewHolder(@NonNull ClassViewHolder holder,
                                  int position) {
-        ClassRoom classRoom=classRooms.get(position);
+        Classroom classRoom= classrooms.get(position);
 
         holder.className.setText(classRoom.getName());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -54,7 +50,7 @@ public class ManagerSearchClassAdapter extends
     }
     @Override
     public int getItemCount() {
-            return classRooms.size();
+            return classrooms.size();
     }
     class ClassViewHolder extends RecyclerView.ViewHolder{
         private TextView className;

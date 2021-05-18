@@ -1,6 +1,8 @@
 package com.btntrung.pointmanagement
 
 import android.app.Application
+import com.btntrung.pointmanagement.data.remote.di.dataModule
+import com.btntrung.pointmanagement.presentation.di.presentationModule
 import com.facebook.FacebookSdk
 import com.facebook.FacebookSdk.getApplicationSignature
 import com.facebook.appevents.AppEventsLogger
@@ -21,7 +23,10 @@ class PointManagementApplication : Application() {
         Timber.plant(Timber.DebugTree())
         startKoin {
             androidContext(this@PointManagementApplication)
-            modules()
+            modules(
+                dataModule,
+                presentationModule
+            )
         }
     }
 }

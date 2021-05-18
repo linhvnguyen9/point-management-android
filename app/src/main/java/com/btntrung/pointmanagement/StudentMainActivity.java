@@ -39,7 +39,7 @@ public class StudentMainActivity extends AppCompatActivity {
         profileImage=findViewById(R.id.profile_image);
         username=findViewById(R.id.username);
 
-        student=new Student("123","123","nguyen abcd","","","","","");
+        student=new Student("123",123,"nguyen abcd","","","","","");
 
         username.setText(student.getName());
         profileImage.setImageResource(R.mipmap.ic_launcher);
@@ -48,7 +48,7 @@ public class StudentMainActivity extends AppCompatActivity {
         viewPagerAdapter.addFragment(new SudentSubjectFragment(),"Subject");
         viewPagerAdapter.addFragment(new StudentPointFragment(),"Point");
 
-        viewPager.setAdapter(viewPagerAdapter);
+        viewPager.setAdapter(viewPagerAdapter) ;
 
         tabLayout.setupWithViewPager(viewPager);
 
@@ -68,7 +68,6 @@ public class StudentMainActivity extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.profile:
-
                 finish();
                 return true;
 
