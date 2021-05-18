@@ -59,12 +59,12 @@ public class SudentSubjectFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mChart = (CombinedChart) view.findViewById(R.id.combinedChart);
 
-        Subject subject=new Subject(1,"Lap trinh",0,0,0);
-        Subject subject2=new Subject(2,"Lap trinh nhung",0,0,0);
-        Subject subject3=new Subject(3,"Kien truc thiet ke phan mem",0,0,0);
-        subjects.add(subject);
-        subjects.add(subject2);
-        subjects.add(subject3);
+//        Subject subject=new Subject(1,"Lap trinh",0,0,0);
+//        Subject subject2=new Subject(2,"Lap trinh nhung",0,0,0);
+//        Subject subject3=new Subject(3,"Kien truc thiet ke phan mem",0,0,0);
+//        subjects.add(subject);
+//        subjects.add(subject2);
+//        subjects.add(subject3);
         subjectAdapter=new StudentSubjectAdapter(getContext(),subjects);
         recyclerView.setAdapter(subjectAdapter);
 

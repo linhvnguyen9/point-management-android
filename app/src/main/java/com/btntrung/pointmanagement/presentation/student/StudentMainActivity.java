@@ -50,7 +50,7 @@ public class StudentMainActivity extends AppCompatActivity {
         profileImage=findViewById(R.id.profile_image);
         username=findViewById(R.id.username);
 
-        student=new Student("123","123","nguyen abcd","","","","","");
+        student=new Student("123",123,"nguyen abcd","","","","","");
 
         profileImage.setImageResource(R.mipmap.ic_launcher);
 

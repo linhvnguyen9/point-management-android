@@ -34,10 +34,10 @@ public class ManagerSearchStudentActivity extends AppCompatActivity {
         key=findViewById(R.id.edit_search);
 //        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        Student student=new Student("1","1","Ducanh","","","","","");
-        Student student1=new Student("1","1","Ducanh","","","","","");
-        students.add(student);
-        students.add(student1);
+//        Student student=new Student("1","1","Ducanh","","","","","");
+//        Student student1=new Student("1","1","Ducanh","","","","","");
+//        students.add(student);
+//        students.add(student1);
         btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

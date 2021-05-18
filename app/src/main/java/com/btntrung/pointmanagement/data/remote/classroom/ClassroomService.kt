@@ -1,4 +1,4 @@
-package com.btntrung.pointmanagement.data.remote.semester
+package com.btntrung.pointmanagement.data.remote.classroom
 
 import com.btntrung.pointmanagement.entity.Classroom
 import com.btntrung.pointmanagement.entity.Semester

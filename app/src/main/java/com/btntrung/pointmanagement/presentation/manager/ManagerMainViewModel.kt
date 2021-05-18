@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.btntrung.pointmanagement.data.remote.semester.ClassroomService
+import com.btntrung.pointmanagement.data.remote.classroom.ClassroomService
 import com.btntrung.pointmanagement.data.remote.semester.SemesterService
 import com.btntrung.pointmanagement.entity.Classroom
 import com.btntrung.pointmanagement.entity.Semester
@@ -16,6 +16,9 @@ import timber.log.Timber
 class ManagerMainViewModel(private val semesterService: SemesterService, private val classroomService: ClassroomService) : ViewModel() {
     private val _semesters = MutableLiveData<List<Semester>>()
     val semesters : LiveData<List<Semester>> get() = _semesters
+
+    private val _selectedSemester = MutableLiveData<Semester>()
+    val selectedSemester : LiveData<Semester> get() = _selectedSemester
 
     private val _classroom = MutableLiveData<List<Classroom>>()
     val classroom : LiveData<List<Classroom>> get() = _classroom
@@ -34,7 +37,12 @@ class ManagerMainViewModel(private val semesterService: SemesterService, private
         }
     }
 
-    fun getClassrooms(semesterId: Int) {
+    fun selectSemester(semester: Semester) {
+        _selectedSemester.value = semester
+        getClassrooms(semester.id)
+    }
+
+    private fun getClassrooms(semesterId: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 val response = classroomService.getClassroomBySemester(semesterId)
