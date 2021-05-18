@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 import com.btntrung.pointmanagement.data.remote.point.PointService
 import com.btntrung.pointmanagement.data.remote.subject.SubjectService
 import com.btntrung.pointmanagement.entity.Point
+import com.btntrung.pointmanagement.entity.Student
 import com.btntrung.pointmanagement.entity.Subject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,6 +30,8 @@ class PointInputViewModel(
 
     private val _savePointResponse = MutableLiveData<Boolean>()
     val savePointResponse : LiveData<Boolean> get() = _savePointResponse
+
+    val student = MutableLiveData<Student>()
 
     init {
         _avg.addSource(attendance) {

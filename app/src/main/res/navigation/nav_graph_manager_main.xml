@@ -35,8 +35,8 @@
         <argument
             android:name="subjectId"
             app:argType="integer" />
-        <argument android:name="studenUid"
-            app:argType="string" />
+        <argument android:name="student"
+            app:argType="com.btntrung.pointmanagement.entity.Student" />
         <argument
             android:name="managerId"
             app:argType="string" />

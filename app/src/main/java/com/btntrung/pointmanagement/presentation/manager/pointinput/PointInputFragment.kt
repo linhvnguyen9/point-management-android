@@ -26,6 +26,7 @@ class PointInputFragment : Fragment() {
 
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
+        viewModel.student.value = args.student
 
         return binding.root
     }
@@ -36,7 +37,7 @@ class PointInputFragment : Fragment() {
         viewModel.getSubjectDetail(args.subjectId)
 
         binding.buttonSavePoint.setOnClickListener {
-            viewModel.savePoint(args.studenUid, args.semesterId, args.managerId) //TODO: REMOVE HARDCODE
+            viewModel.savePoint(args.student.uid, args.semesterId, args.managerId) //TODO: REMOVE HARDCODE
         }
 
         viewModel.savePointResponse.observe(viewLifecycleOwner) {

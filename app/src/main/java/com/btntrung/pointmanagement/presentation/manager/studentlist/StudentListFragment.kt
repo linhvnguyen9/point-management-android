@@ -27,7 +27,11 @@ class StudentListFragment : Fragment() {
     ): View {
         binding = FragmentStudentListBinding.inflate(inflater, container, false)
 
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
+
         viewModel.getStudents(args.classroom.id)
+        viewModel.classroom.value = args.classroom
 
         return binding.root
     }
@@ -38,7 +42,7 @@ class StudentListFragment : Fragment() {
         binding.recyclerStudentList.adapter = StudentListAdapter(object : StudentClickListener {
             override fun onClick(student: Student) {
                 val managerId = FirebaseAuth.getInstance().currentUser.uid
-                findNavController().navigate(StudentListFragmentDirections.actionStudentListFragmentToPointInputFragment(args.classroom.subjectId, student.uid, managerId, args.semesterId))
+                findNavController().navigate(StudentListFragmentDirections.actionStudentListFragmentToPointInputFragment(args.classroom.subjectId, student, managerId, args.semesterId))
             }
         })
         binding.recyclerStudentList.layoutManager = LinearLayoutManager(requireContext())
