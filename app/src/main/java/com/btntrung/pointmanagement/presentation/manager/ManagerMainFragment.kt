@@ -1,5 +1,6 @@
 package com.btntrung.pointmanagement.presentation.manager
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.btntrung.pointmanagement.databinding.FragmentManagerMainBinding
 import com.btntrung.pointmanagement.entity.Classroom
 import com.btntrung.pointmanagement.entity.Semester
+import com.btntrung.pointmanagement.presentation.student.StudentMainActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ManagerMainFragment : Fragment() {
@@ -39,6 +41,8 @@ class ManagerMainFragment : Fragment() {
         binding.recycleView.layoutManager = LinearLayoutManager(requireContext())
 
         binding.btnSearch.setOnClickListener {
+            val intent:Intent=Intent(activity,StudentMainActivity::class.java)
+            startActivity(intent)
         }
 
         binding.spinnerManagerSemester.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {

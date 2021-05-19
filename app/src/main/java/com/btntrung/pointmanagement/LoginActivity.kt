@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.btntrung.pointmanagement.presentation.manager.ManagerMainActivity
+import com.btntrung.pointmanagement.presentation.student.StudentMainActivity
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
@@ -41,11 +42,12 @@ class LoginActivity : AppCompatActivity() {
             if (resultCode == Activity.RESULT_OK) {
                 FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener {
                     if (it.isSuccessful) {
-//                        val isAdmin = it.result?.claims?.get("admin") as Boolean
-                        val isAdmin = true
+                        val isAdmin = it.result?.claims?.get("admin") as? String
+                        println(isAdmin+"================")
+//                        val isAdmin = true
                         Timber.d(it.result?.token)
                         Hawk.put("FIREBASE_TOKEN", it.result?.token)
-                        val intent = if (isAdmin) {
+                        val intent = if (isAdmin.isNullOrBlank() == false) {
                             Intent(this, ManagerMainActivity::class.java)
                         } else {
                             Intent(this, StudentMainActivity::class.java)

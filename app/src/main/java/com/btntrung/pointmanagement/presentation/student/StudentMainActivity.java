@@ -1,4 +1,4 @@
-package com.btntrung.pointmanagement;
+package com.btntrung.pointmanagement.presentation.student;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,25 +9,39 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.btntrung.pointmanagement.LoginActivity;
+import com.btntrung.pointmanagement.R;
+import com.btntrung.pointmanagement.entity.Semester;
 import com.btntrung.pointmanagement.entity.Student;
 import com.btntrung.pointmanagement.fragments.StudentPointFragment;
 import com.btntrung.pointmanagement.fragments.SudentSubjectFragment;
+import com.btntrung.pointmanagement.presentation.student.model.StudentPointModel;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.orhanobut.hawk.Hawk;
 
 import java.util.ArrayList;
+import java.util.Currency;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class StudentMainActivity extends AppCompatActivity {
     private TextView username;
     private Student student;
     private CircleImageView profileImage;
+    private String token="Bearer "+Hawk.get("FIREBASE_TOKEN", "");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +53,20 @@ public class StudentMainActivity extends AppCompatActivity {
         profileImage=findViewById(R.id.profile_image);
         username=findViewById(R.id.username);
 
-        student=new Student("123",123,"nguyen abcd","","","","","");
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // Name, email address, and profile photo Url
+            String name = user.getDisplayName();
+            String email = user.getEmail();
+            Uri photoUrl = user.getPhotoUrl();
 
-        username.setText(student.getName());
-        profileImage.setImageResource(R.mipmap.ic_launcher);
+            username.setText(name);
+            profileImage.setImageURI(photoUrl);
+            boolean emailVerified = user.isEmailVerified();
+            String uid = user.getUid();
+
+        }
+
 
         ViewPagerAdapter viewPagerAdapter=new ViewPagerAdapter(getSupportFragmentManager());
         viewPagerAdapter.addFragment(new SudentSubjectFragment(),"Subject");
@@ -63,8 +87,8 @@ public class StudentMainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.logout:
-//                FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(StudentMainActivity.this,LoginActivity.class));
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(StudentMainActivity.this, LoginActivity.class));
                 finish();
                 return true;
             case R.id.profile:
@@ -105,4 +129,5 @@ public class StudentMainActivity extends AppCompatActivity {
             return titles.get(position);
         }
     }
+
 }

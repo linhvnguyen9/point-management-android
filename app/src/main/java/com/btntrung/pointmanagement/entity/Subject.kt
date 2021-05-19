@@ -1,6 +1,7 @@
 package com.btntrung.pointmanagement.entity
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class Subject(
     val id: Int,
@@ -9,4 +10,4 @@ data class Subject(
     @SerializedName("project_percent") val projectPercent: Float,
     @SerializedName("test_percent") val testPercent: Float,
     @SerializedName("final_percent") val finalPercent: Float
-)
+):Serializable
