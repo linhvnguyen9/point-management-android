@@ -42,11 +42,12 @@ class LoginActivity : AppCompatActivity() {
             if (resultCode == Activity.RESULT_OK) {
                 FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener {
                     if (it.isSuccessful) {
-                        val isAdmin = it.result?.claims?.get("admin") as? Boolean
+                        val isAdmin = it.result?.claims?.get("admin") as? String
+                        println(isAdmin+"================")
 //                        val isAdmin = true
                         Timber.d(it.result?.token)
                         Hawk.put("FIREBASE_TOKEN", it.result?.token)
-                        val intent = if (isAdmin==true) {
+                        val intent = if (isAdmin.isNullOrBlank() == false) {
                             Intent(this, ManagerMainActivity::class.java)
                         } else {
                             Intent(this, StudentMainActivity::class.java)
