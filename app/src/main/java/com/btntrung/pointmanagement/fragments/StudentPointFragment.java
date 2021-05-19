@@ -22,6 +22,8 @@ import com.btntrung.pointmanagement.entity.Subject;
 import com.btntrung.pointmanagement.presentation.student.ApiService;
 import com.btntrung.pointmanagement.presentation.student.StudentGetPointService;
 import com.btntrung.pointmanagement.presentation.student.model.StudentPointModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.orhanobut.hawk.Hawk;
 
 import java.util.ArrayList;
@@ -39,7 +41,8 @@ public class StudentPointFragment extends Fragment {
     private StudentPointAdapter adapterPoint;
     private List<StudentPointModel> listSubjects=new ArrayList<>();
     private String keySemester;
-    private int studentID=4;
+    FirebaseUser firebaseUser;
+    String uid;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,6 +52,11 @@ public class StudentPointFragment extends Fragment {
         recyclerView=view.findViewById(R.id.recycle_view);
 //        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
+        uid= firebaseUser.getUid();
+        System.out.println(uid+"=====");
+
         callSemester(view);
 
 
@@ -75,7 +83,7 @@ public class StudentPointFragment extends Fragment {
                 spinnerSemester.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        callSubject(view,listSemester.get(position).getName(),studentID);
+                        callSubject(view,listSemester.get(position).getName(),uid);
                     }
 
                     @Override
@@ -93,8 +101,8 @@ public class StudentPointFragment extends Fragment {
 
     }
 
-    private void callSubject(View view,String semesterNameKey,int studentID) {
-        ApiService.apiService.getAllPoint(token, studentID).enqueue(new Callback<List<StudentPointModel>>() {
+    private void callSubject(View view, String semesterNameKey, String studentID) {
+        ApiService.apiService.getAllPoint(token, uid).enqueue(new Callback<List<StudentPointModel>>() {
             @Override
             public void onResponse(Call<List<StudentPointModel>> call, Response<List<StudentPointModel>> response) {
                 List<StudentPointModel> listSubject=response.body();

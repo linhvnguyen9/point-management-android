@@ -26,7 +26,7 @@ public interface ApiService {
 
 
     @GET("api/v1/points")
-    Call<List<StudentPointModel>> getAllPoint(@Header("Authorization") String token, @Query("student") int id);
+    Call<List<StudentPointModel>> getAllPoint(@Header("Authorization") String token, @Query("student") String uid);
 
     @GET("api/v1/semesters")
     Call<List<Semester>> getAllSemester(@Header("Authorization") String token);

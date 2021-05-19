@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.btntrung.pointmanagement.R;
@@ -28,6 +29,8 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.orhanobut.hawk.Hawk;
 
 import java.util.ArrayList;
@@ -42,11 +45,14 @@ public class SudentSubjectFragment extends Fragment {
     private RecyclerView recyclerView;
     private StudentSubjectAdapter subjectAdapter;
     private List<Subject> subjects=new ArrayList<>();
+    private TextView txtGpa,txtDescription;
 
     private CombinedChart mChart;
     private int textColor=Color.RED;
     private String token="Bearer "+ Hawk.get("FIREBASE_TOKEN", "");
     private List<StudentPointModel> list=null;
+    private FirebaseUser firebaseUser;
+    private String uid;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,19 +60,18 @@ public class SudentSubjectFragment extends Fragment {
 
         View view=inflater.inflate(R.layout.fragment_sudent_subject,container,false);
 
+        txtGpa=view.findViewById(R.id.txt_gpa);
+        txtDescription=view.findViewById(R.id.txt_description);
         recyclerView=view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mChart = (CombinedChart) view.findViewById(R.id.combinedChart);
 
-//        Subject subject=new Subject(1,"Lap trinh",0,0,0);
-//        Subject subject2=new Subject(2,"Lap trinh nhung",0,0,0);
-//        Subject subject3=new Subject(3,"Kien truc thiet ke phan mem",0,0,0);
-//        subjects.add(subject);
-//        subjects.add(subject2);
-//        subjects.add(subject3);
-        subjectAdapter=new StudentSubjectAdapter(getContext(),subjects);
-        recyclerView.setAdapter(subjectAdapter);
+        firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
+        uid= firebaseUser.getUid();
+
+//        subjectAdapter=new StudentSubjectAdapter(getContext(),subjects);
+//        recyclerView.setAdapter(subjectAdapter);
 
         callApi();
 
@@ -74,10 +79,22 @@ public class SudentSubjectFragment extends Fragment {
     }
     private void callApi(){
         System.out.println(token);
-        ApiService.apiService.getAllPoint(token,4).enqueue(new Callback<List<StudentPointModel>>() {
+        ApiService.apiService.getAllPoint(token,uid).enqueue(new Callback<List<StudentPointModel>>() {
             @Override
             public void onResponse(Call<List<StudentPointModel>> call, Response<List<StudentPointModel>> response) {
                 outChart(response.body());
+                List<StudentPointModel> list=response.body();
+                float avg=0;
+                for (StudentPointModel studentPointModel:list)
+                    avg+=studentPointModel.getAvg();
+                float gpa= (float) ((avg/list.size())/2.5);
+                txtGpa.setText(gpa+"");
+                if (gpa>=3.2)
+                    txtDescription.setText("Higt Point");
+                else if (gpa>=2.5) txtDescription.setText("Medium Point");
+                else if (gpa>=1.5) txtDescription.setText("Low Point");
+
+
             }
 
             @Override
@@ -101,7 +118,7 @@ public class SudentSubjectFragment extends Fragment {
         for (StudentPointModel studentPointModel:list) {
             d++;
             semesterName.add(studentPointModel.getSemester().getName());
-            point[d]= (float) studentPointModel.getAvg();
+            point[d]= (float) ((float) (studentPointModel.getAvg())/2.5);
         }
 
         mChart.getDescription().setEnabled(false);
@@ -113,11 +130,11 @@ public class SudentSubjectFragment extends Fragment {
 
         YAxis rightAxis = mChart.getAxisRight();
         rightAxis.setDrawGridLines(false);
-        rightAxis.setAxisMinimum(5f);
+        rightAxis.setAxisMinimum(6f);
 
         YAxis leftAxis = mChart.getAxisLeft();
         leftAxis.setDrawGridLines(false);
-        leftAxis.setAxisMinimum(5f);
+        leftAxis.setAxisMinimum(2f);
 
         XAxis xAxis = mChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);

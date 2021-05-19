@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +24,8 @@ import com.btntrung.pointmanagement.fragments.StudentPointFragment;
 import com.btntrung.pointmanagement.fragments.SudentSubjectFragment;
 import com.btntrung.pointmanagement.presentation.student.model.StudentPointModel;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.orhanobut.hawk.Hawk;
 
 import java.util.ArrayList;
@@ -50,9 +53,20 @@ public class StudentMainActivity extends AppCompatActivity {
         profileImage=findViewById(R.id.profile_image);
         username=findViewById(R.id.username);
 
-        student=new Student("123",123,"nguyen abcd","","","","","");
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // Name, email address, and profile photo Url
+            String name = user.getDisplayName();
+            String email = user.getEmail();
+            Uri photoUrl = user.getPhotoUrl();
 
-        profileImage.setImageResource(R.mipmap.ic_launcher);
+            username.setText(name);
+            profileImage.setImageURI(photoUrl);
+            boolean emailVerified = user.isEmailVerified();
+            String uid = user.getUid();
+
+        }
+
 
         ViewPagerAdapter viewPagerAdapter=new ViewPagerAdapter(getSupportFragmentManager());
         viewPagerAdapter.addFragment(new SudentSubjectFragment(),"Subject");
@@ -61,7 +75,6 @@ public class StudentMainActivity extends AppCompatActivity {
         viewPager.setAdapter(viewPagerAdapter) ;
 
         tabLayout.setupWithViewPager(viewPager);
-        callApi();
 
 
     }
@@ -74,7 +87,7 @@ public class StudentMainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.logout:
-//                FirebaseAuth.getInstance().signOut();
+                FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(StudentMainActivity.this, LoginActivity.class));
                 finish();
                 return true;
@@ -117,22 +130,4 @@ public class StudentMainActivity extends AppCompatActivity {
         }
     }
 
-    private void callApi(){
-        System.out.println(token);
-        ApiService.apiService.getAllPoint(token,4).enqueue(new Callback<List<StudentPointModel>>() {
-            @Override
-            public void onResponse(Call<List<StudentPointModel>> call, Response<List<StudentPointModel>> response) {
-                List<StudentPointModel> point=response.body();
-                System.out.println("point size"+point.size());
-                System.out.println("object+++++"+point.get(0).getSemester().getName());
-//                username.setText(point.get(0).getSubject().getName().toString());
-            }
-
-            @Override
-            public void onFailure(Call<List<StudentPointModel>> call, Throwable t) {
-                Toast.makeText(StudentMainActivity.this,"Call Api fail",Toast.LENGTH_SHORT).show();
-            }
-        });
-
-    }
 }
