@@ -11,6 +11,8 @@ import androidx.navigation.fragment.navArgs
 import com.btntrung.pointmanagement.R
 import com.btntrung.pointmanagement.databinding.FragmentPointInputBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import android.content.Intent
+import com.btntrung.pointmanagement.presentation.manager.ManagerMainActivity
 
 class PointInputFragment : Fragment() {
     private val viewModel : PointInputViewModel by viewModel()
@@ -38,6 +40,7 @@ class PointInputFragment : Fragment() {
 
         binding.buttonSavePoint.setOnClickListener {
             viewModel.savePoint(args.student.uid, args.semesterId, args.managerId) //TODO: REMOVE HARDCODE
+//            Intent(activity, ManagerMainActivity::class.java)
         }
 
         viewModel.savePointResponse.observe(viewLifecycleOwner) {

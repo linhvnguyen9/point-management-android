@@ -59,8 +59,9 @@ public class ProfileActivity extends AppCompatActivity {
         switch (item.getItemId())
         {
             case android.R.id.home:
-                startActivity(new Intent(ProfileActivity.this, StudentMainActivity.class));
-                finish();
+//                startActivity(new Intent(ProfileActivity.this, StudentMainActivity.class));
+//                finish();
+                onBackPressed();
                 return true;
 
             default:break;

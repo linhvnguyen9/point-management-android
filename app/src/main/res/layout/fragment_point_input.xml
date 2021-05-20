@@ -9,8 +9,10 @@
     </data>
 
     <ScrollView
+        android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -18,134 +20,237 @@
             android:orientation="vertical"
             tools:context=".presentation.manager.pointinput.PointInputFragment">
 
+        <LinearLayout
+            android:layout_margin="2dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/tab"
+            android:orientation="vertical">
+
             <TextView
+                android:layout_margin="5dp"
                 android:text="@{`Student: ` + viewModel.student.name}"
                 android:layout_width="wrap_content"
+                android:textColor="@color/white"
                 android:textStyle="bold"
+                android:textSize="18dp"
                 android:layout_height="wrap_content"/>
 
             <TextView
+                android:layout_margin="5dp"
                 android:text="@{`Code: ` + viewModel.student.studentCode}"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="18dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+        </LinearLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
+                android:background="@drawable/background_radius1"
+                android:orientation="vertical">
+
+                <TableLayout
+                    android:id="@+id/tableLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Attendance " />
-                <TextView
-                    android:text="@{viewModel.subject.attendancePercent + `%`}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_margin="12dp"
+                    android:stretchColumns="3">
+
+                    <TableRow android:background="@drawable/background_subjectnam">
+
+                        <TextView
+
+                            android:id="@+id/textView10"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:layout_margin="15dp"
+                            android:layout_marginLeft="20dp"
+                            android:text="POINT TYPE"
+                            android:textColor="@color/white"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            tools:layout_editor_absoluteX="58dp"
+                            tools:layout_editor_absoluteY="170dp" />
+
+                        <TextView
+                            android:id="@+id/txt20"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="2"
+                            android:layout_gravity="center"
+                            android:text="RATIO"
+                            android:textColor="@color/white"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            tools:layout_editor_absoluteX="259dp"
+                            tools:layout_editor_absoluteY="163dp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_column="3"
+                            android:layout_gravity="center"
+                            android:text="POINT"
+                            android:textColor="@color/white"
+                            android:textSize="18dp"
+                            android:textStyle="bold"
+                            tools:layout_editor_absoluteX="259dp"
+                            tools:layout_editor_absoluteY="163dp" />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_margin="5dp">
+
+                            <TextView
+                                android:layout_margin="8dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textSize="16dp"
+                                android:layout_column="1"
+                                android:text="Attendance " />
+
+                            <TextView
+                                android:text="@{viewModel.subject.attendancePercent + `%`}"
+                                android:layout_width="match_parent"
+                                android:layout_column="2"
+                                android:layout_height="wrap_content"/>
+
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_column="3"
+                                android:inputType="numberDecimal"
+                                android:text="@={viewModel.attendance}" />
+                    </TableRow>
+                    <TableRow
+                        android:layout_margin="5dp">
+
+                        <TextView
+                            android:layout_margin="8dp"
+                            android:textSize="16dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_column="1"
+                            android:text="Project " />
+                        <TextView
+                            android:text="@{viewModel.subject.projectPercent + `%`}"
+                            android:layout_width="wrap_content"
+                            android:layout_column="2"
+                            android:layout_height="wrap_content"/>
+
+                        <EditText
+                            android:layout_column="3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:text="@={viewModel.project}" />
+                    </TableRow>
+                    <TableRow
+                        android:layout_margin="5dp">
+                        <TextView
+                            android:layout_margin="8dp"
+                            android:textSize="16dp"
+                            android:layout_column="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Test " />
+                        <TextView
+                            android:layout_column="2"
+                            android:text="@{viewModel.subject.testPercent + `%`}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <EditText
+                            android:layout_column="3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:text="@={viewModel.test}" />
+                    </TableRow>
+                    <TableRow
+                        android:layout_margin="5dp">
+                        <TextView
+                            android:layout_margin="8dp"
+                            android:textSize="16dp"
+                            android:layout_column="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Final " />
+                        <TextView
+                            android:layout_column="2"
+                            android:text="@{viewModel.subject.finalPercent + `%`}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                        <EditText
+                            android:layout_column="3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="numberDecimal"
+                            android:text="@={viewModel.final}" />
+                    </TableRow>
+
+                </TableLayout>
             </LinearLayout>
 
-            <EditText
+            <LinearLayout
+                android:background="@drawable/background_radius1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:text="@={viewModel.attendance}" />
+                android:layout_margin="5dp"
+                android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
+                <LinearLayout
+                    android:layout_margin="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Project " />
-                <TextView
-                    android:text="@{viewModel.subject.projectPercent + `%`}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
+                    android:orientation="horizontal">
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:text="@={viewModel.project}" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:textSize="18dp"
+                        android:textColor="@color/black"
+                        android:layout_height="wrap_content"
+                        android:text="Total: " />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:text="@{viewModel.avg}"
+                        tools:text="9.5" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_margin="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Test " />
-                <TextView
-                    android:text="@{viewModel.subject.testPercent + `%`}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:textSize="18dp"
+                        android:textColor="@color/black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Grade: " />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:text="@{viewModel.grade}"
+                        tools:text="A+" />
+                </LinearLayout>
+
+
             </LinearLayout>
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:text="@={viewModel.test}" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Final " />
-                <TextView
-                    android:text="@{viewModel.subject.finalPercent + `%`}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            </LinearLayout>
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:text="@={viewModel.final}" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Total: " />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:text="@{viewModel.avg}"
-                    tools:text="9.5" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Grade: " />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:text="@{viewModel.grade}"
-                    tools:text="A+" />
-            </LinearLayout>
 
             <Button
                 android:id="@+id/button_save_point"

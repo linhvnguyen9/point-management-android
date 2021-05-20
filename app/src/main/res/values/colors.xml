@@ -24,4 +24,5 @@
     <color name="txtPoint">#ef476f</color>
     <color name="btnBack">#ef476f</color>
     <color name="spinner">#FFD0E0</color>
+    <color name="backgroundRecycle">#DFFFB9</color>
 </resources>
