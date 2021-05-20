@@ -43,7 +43,6 @@ class LoginActivity : AppCompatActivity() {
                 FirebaseAuth.getInstance().currentUser?.getIdToken(false)?.addOnCompleteListener {
                     if (it.isSuccessful) {
                         val isAdmin = it.result?.claims?.get("admin") as? String
-                        println(isAdmin+"================")
 //                        val isAdmin = true
                         Timber.d(it.result?.token)
                         Hawk.put("FIREBASE_TOKEN", it.result?.token)
