@@ -9,22 +9,51 @@
     </data>
 
     <LinearLayout
+        android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".presentation.manager.studentlist.StudentListViewModel"
         android:orientation="vertical">
 
-        <TextView
-            android:text="@{`Student in class ` + viewModel.classroom.name}"
-            android:id="@+id/text_title"
-            android:layout_width="match_parent"
-            tools:text="E17CN2"
-            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:background="@drawable/background_up"
+            android:id="@+id/linearLayout4"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_margin="0dp"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="10dp">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_student_list"
+            <TextView
+                android:text="@{`CLASS ` + viewModel.classroom.name}"
+                android:id="@+id/text_title"
+                android:textColor="@color/white"
+                android:layout_margin="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:textSize="20dp"
+                tools:text="E17CN2"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:backgroundTint="@color/backgroundRecycle"
+            android:id="@+id/linearLayout5"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:background="@drawable/background_down"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_margin="3dp"
+                android:id="@+id/recycler_student_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
 
     </LinearLayout>
 </layout>

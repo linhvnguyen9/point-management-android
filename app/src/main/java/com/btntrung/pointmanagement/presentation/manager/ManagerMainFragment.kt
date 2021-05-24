@@ -40,10 +40,10 @@ class ManagerMainFragment : Fragment() {
         })
         binding.recycleView.layoutManager = LinearLayoutManager(requireContext())
 
-        binding.btnSearch.setOnClickListener {
-            val intent:Intent=Intent(activity,StudentMainActivity::class.java)
-            startActivity(intent)
-        }
+//        binding.btnSearch.setOnClickListener {
+//            val intent:Intent=Intent(activity,StudentMainActivity::class.java)
+//            startActivity(intent)
+//        }
 
         binding.spinnerManagerSemester.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(

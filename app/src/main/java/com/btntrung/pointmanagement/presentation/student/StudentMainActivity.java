@@ -2,6 +2,7 @@ package com.btntrung.pointmanagement.presentation.student;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -13,34 +14,22 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.btntrung.pointmanagement.LoginActivity;
+import com.btntrung.pointmanagement.ProfileActivity;
 import com.btntrung.pointmanagement.R;
-import com.btntrung.pointmanagement.entity.Semester;
 import com.btntrung.pointmanagement.entity.Student;
 import com.btntrung.pointmanagement.fragments.StudentPointFragment;
 import com.btntrung.pointmanagement.fragments.SudentSubjectFragment;
-import com.btntrung.pointmanagement.presentation.student.model.StudentPointModel;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.orhanobut.hawk.Hawk;
 
 import java.util.ArrayList;
-import java.util.Currency;
-import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class StudentMainActivity extends AppCompatActivity {
-    private TextView username;
     private Student student;
-    private CircleImageView profileImage;
     private String token="Bearer "+Hawk.get("FIREBASE_TOKEN", "");
 
     @Override
@@ -48,10 +37,12 @@ public class StudentMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_main);
 
+        ActionBar actionBar = getSupportActionBar();
+
         TabLayout tabLayout=findViewById(R.id.tab_layout);
         ViewPager viewPager=findViewById(R.id.view_pager);
-        profileImage=findViewById(R.id.profile_image);
-        username=findViewById(R.id.username);
+//        profileImage=findViewById(R.id.profile_image);
+//        username=findViewById(R.id.username);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -60,16 +51,16 @@ public class StudentMainActivity extends AppCompatActivity {
             String email = user.getEmail();
             Uri photoUrl = user.getPhotoUrl();
 
-            username.setText(name);
-            profileImage.setImageURI(photoUrl);
-            boolean emailVerified = user.isEmailVerified();
-            String uid = user.getUid();
+            actionBar.setTitle(name);
+            actionBar.setDisplayShowHomeEnabled(true);
+//            actionBar.setLogo();
+            actionBar.setDisplayUseLogoEnabled(true);
 
         }
 
 
         ViewPagerAdapter viewPagerAdapter=new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFragment(new SudentSubjectFragment(),"Subject");
+        viewPagerAdapter.addFragment(new SudentSubjectFragment(),"OVERVIEW");
         viewPagerAdapter.addFragment(new StudentPointFragment(),"Point");
 
         viewPager.setAdapter(viewPagerAdapter) ;
@@ -80,7 +71,7 @@ public class StudentMainActivity extends AppCompatActivity {
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_student,menu);
+        getMenuInflater().inflate(R.menu.menu,menu);
         return true;
     }
     @Override
@@ -92,6 +83,7 @@ public class StudentMainActivity extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.profile:
+                startActivity(new Intent(StudentMainActivity.this, ProfileActivity.class));
                 finish();
                 return true;
 

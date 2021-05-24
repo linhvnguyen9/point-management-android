@@ -48,7 +48,7 @@ public class SudentSubjectFragment extends Fragment {
     private TextView txtGpa,txtDescription;
 
     private CombinedChart mChart;
-    private int textColor=Color.RED;
+    private int textColor=Color.DKGRAY;
     private String token="Bearer "+ Hawk.get("FIREBASE_TOKEN", "");
     private List<StudentPointModel> list=null;
     private FirebaseUser firebaseUser;
@@ -70,6 +70,7 @@ public class SudentSubjectFragment extends Fragment {
         firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
         uid= firebaseUser.getUid();
 
+
 //        subjectAdapter=new StudentSubjectAdapter(getContext(),subjects);
 //        recyclerView.setAdapter(subjectAdapter);
 
@@ -88,7 +89,8 @@ public class SudentSubjectFragment extends Fragment {
                 for (StudentPointModel studentPointModel:list)
                     avg+=studentPointModel.getAvg();
                 float gpa= (float) ((avg/list.size())/2.5);
-                txtGpa.setText(gpa+"");
+                gpa=(float) Math.round(gpa * 100) / 100;
+                txtGpa.setText("GPA: "+gpa+"");
                 if (gpa>=3.2)
                     txtDescription.setText("Higt Point");
                 else if (gpa>=2.5) txtDescription.setText("Medium Point");
