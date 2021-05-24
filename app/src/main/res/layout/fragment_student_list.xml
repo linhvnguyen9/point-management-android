@@ -9,29 +9,31 @@
     </data>
 
     <LinearLayout
+        android:background="@color/background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".presentation.manager.studentlist.StudentListViewModel"
         android:orientation="vertical">
 
         <LinearLayout
+            android:background="@drawable/background_up"
             android:id="@+id/linearLayout4"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_margin="3dp"
-            android:background="@color/toolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_margin="0dp"
             android:orientation="vertical"
-            tools:layout_editor_absoluteX="3dp">
+            tools:layout_editor_absoluteX="10dp">
 
             <TextView
-                android:text="@{`Student in class ` + viewModel.classroom.name}"
+                android:text="@{`CLASS ` + viewModel.classroom.name}"
                 android:id="@+id/text_title"
                 android:textColor="@color/white"
-                android:layout_margin="7dp"
+                android:layout_margin="5dp"
+                android:layout_marginLeft="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:textSize="30dp"
+                android:gravity="left"
+                android:textSize="20dp"
                 tools:text="E17CN2"
                 android:textStyle="bold" />
 
@@ -43,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
-            android:background="@drawable/background_radius1"
+            android:background="@drawable/background_down"
             android:orientation="vertical">
 
             <androidx.recyclerview.widget.RecyclerView

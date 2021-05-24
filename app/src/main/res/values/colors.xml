@@ -23,6 +23,7 @@
     <color name="txtSendRight">#2a9d8f</color>
     <color name="txtPoint">#ef476f</color>
     <color name="btnBack">#ef476f</color>
-    <color name="spinner">#FFD0E0</color>
-    <color name="backgroundRecycle">#DFFFB9</color>
+    <color name="spinner">#FFFFFF</color>
+    <color name="backgroundRecycle">#CCCCCC</color>
+    <color name="tabManager">#636363</color>
 </resources>

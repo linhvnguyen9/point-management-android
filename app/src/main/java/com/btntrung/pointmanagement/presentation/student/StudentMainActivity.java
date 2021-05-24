@@ -60,7 +60,7 @@ public class StudentMainActivity extends AppCompatActivity {
 
 
         ViewPagerAdapter viewPagerAdapter=new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFragment(new SudentSubjectFragment(),"Subject");
+        viewPagerAdapter.addFragment(new SudentSubjectFragment(),"OVERVIEW");
         viewPagerAdapter.addFragment(new StudentPointFragment(),"Point");
 
         viewPager.setAdapter(viewPagerAdapter) ;
